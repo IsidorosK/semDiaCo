@@ -1,3 +1,9 @@
+"""
+This file given audio annotated segments created from Audacity,
+converts the automated Audacity .txt annotated files into 
+.segment files 
+"""
+
 import os 
 import csv
 import sys 
