@@ -6,8 +6,8 @@ import sys
 path = os.getcwd()
 print("Current path is:",path)
 # go to annotation files
-tmp = ""+"annotation"
-# create the path to annotation folder
+tmp = ""+"annotated_data"
+# create the path to annotated_data folder
 path = os.path.join(path,tmp)
 print("\nEntered path:",path)
 
