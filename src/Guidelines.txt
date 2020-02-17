@@ -1,0 +1,63 @@
+#In order to download,extract the .wav files, crop the audio files and crop the optical files
+#you need to have following libraries installed in your system:
+
+-pytube: 
+	For pytube do: 
+	-sudo pip3 uninstall pytube 
+	-sudo pip3 install pytube3 --upgrade 
+	(See here: https://github.com/hbmartin/pytube3)
+-natsort
+
+-pydub
+
+# Usage: 
+$python3 preprocess_youtube.py <URL list> <path>
+
+# Example: 
+$python3 preprocess_youtube.py 'https://www.youtube.com/playlist?list=PLP28C3ZgpKBy8G5UqubZgDEI6-vx4LGWH' '/mnt/c/Users/Alekos/Desktop/youtube_videos'
+# where /youtube_videos is a directory that is going to be created 
+
+#Files:
+In order to achieve our goal to download and crop the signals we created two files
+named respectively: 1)"preprocess_youtube.py"
+                    2)"ffmpeg-split.py" ->this file is called from cropVideo()
+
+#DISCLAIMER!
+#Sometimes the cropVideo() does not work at first! You should comment that function call in main
+#run the first three funtions, then comment the first three functions, and then uncomment cropVideo() in main()
+#and run only cropVideo()
+
+# Functions:
+# In the file named "preprocess_youtube" exist the following functions:
+	1)runBash(command)
+
+	2)DownloadVideo(URL,path)
+          This function downloads the entire playlist from youtube to the directory where
+          "preprocess_youtube.py" is. In addition it saves each individual youtube videoURL
+          into a .txt file named ""video_URLs.txt"" 
+	
+	3)getWAV(path)
+	  This function gets a video signal.mp4 and creates its audio signal.wav	
+
+	4)cropAudio(path): crop an audio signal into chunks of K seconds
+	  If you want to change the seconds change this variable: chunk_length_ms
+	  In addition this function creates a folder named "audio_segments" where
+	  the cropped audio files are saved. 
+
+	5)cropVideo(path): crop a video signal into chunks of K seconds
+          If you need to change the seconds change -s K in the tmp variable
+          Example: change 'python2 /yourDirectory/video_segments/auxiliary.py -f  -s 60' to 'python2 /yourDirectory/video_segments/auxiliary.py -f  -s K'
+          where K is the number of seconds.
+
+          DO NOT FORGET to set the directories especially for your system
+  
+	  #do not forget to include this part:
+          #/video_segments/auxiliary.py -f  -s 10
+          tmp = 'python2 /yourDirectory/video_segments/ffmpeg-split.py -f  -s 60'
+          #Example:
+          tmp = 'python2 /mnt/c/Users/Alekos/Desktop/video_segments/auxiliary.py -f  -s 60'  
+
+	6)main()
+          In this function we call every aforementioned function and get the user inputs 
+          from the terminal
+ 
